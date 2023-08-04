@@ -16,4 +16,21 @@
     height: 600px;
     width: 400px;
     outline: 1px solid green;
+    padding: 16px;
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+}
+
+.display {
+    height: 20%;
+    width: 100%;
+    outline: 1px solid red;
+}
+
+.buttons {
+    height: 80%;
+    width: 100%;
+    outline: 1px solid blue;
+    padding: 16px;
 }
