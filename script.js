@@ -31,19 +31,23 @@ const operate = (operator, operand1, operand2) => {
     }
 };
 
-const displayNumbers = (test) => {
+const displayNumbers = (number) => {
     const operations = document.querySelector(".operations");
-    operations.textContent += test;
+    operations.textContent += number;
     
     operandOne = operations.textContent;
-
 };
 
+const displayOperator = (operator) => {
+    const operations = document.querySelector(".operations");
+    operations.textContent += ` ${operator} `;
+};
 
 
 let operandOne;
 let operandTwo;
 let operatorChoice;
+
 const zero = document.querySelector("#zero");
 const one = document.querySelector("#one");
 const two = document.querySelector('#two');
@@ -55,6 +59,10 @@ const seven = document.querySelector('#seven');
 const eight = document.querySelector('#eight');
 const nine = document.querySelector('#nine');
 
+const addOperator = document.querySelector("#add");
+const subtractOperator = document.querySelector("#subtract");
+const multiplyOperator = document.querySelector("#multiply");
+const divideOperator = document.querySelector("#divide");
 
 zero.addEventListener("click", function (e) {
     displayNumbers(e.target.textContent);
@@ -85,4 +93,17 @@ eight.addEventListener("click", function (e) {
 });
 nine.addEventListener("click", function (e) {
     displayNumbers(e.target.textContent)
+});
+
+addOperator.addEventListener("click", function (e) {
+    displayOperator(e.target.textContent)
+});
+subtractOperator.addEventListener("click", function (e) {
+    displayOperator(e.target.textContent)
+});
+multiplyOperator.addEventListener("click", function (e) {
+    displayOperator(e.target.textContent)
+});
+divideOperator.addEventListener("click", function (e) {
+    displayOperator(e.target.textContent)
 });
