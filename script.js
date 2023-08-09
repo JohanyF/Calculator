@@ -60,6 +60,18 @@ const displayAnswer = (answer) => {
     operations.textContent = answer;
 };
 
+const displayExpression = (operator, operand1, operand2) => {
+    const expression = document.querySelector(".expression");
+    expression.textContent = `${operand1} ${operator} ${operand2} =`;
+};
+
+const updateCalculatorVariables = () => {
+    operandOne = calculatorAnswer;
+    operandTwo = undefined;
+    operatorChoice = undefined;
+    calculatorAnswer = undefined;
+};
+
 
 let operandOne;
 let operandTwo;
@@ -132,4 +144,6 @@ divideOperator.addEventListener("click", function (e) {
 evaluate.addEventListener("click", function() {
     operate(operatorChoice, operandOne, operandTwo);
     displayAnswer(calculatorAnswer);
+    displayExpression(operatorChoice, operandOne, operandTwo);
+    updateCalculatorVariables();
 });
