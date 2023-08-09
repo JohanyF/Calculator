@@ -17,16 +17,16 @@ const divide = (operand1, operand2) => {
 const operate = (operator, operand1, operand2) => {
     switch(operator) {
         case "+":
-            add(operand1, operand2);
+            calculatorAnswer = add(operand1, operand2);
             break;
         case "-":
-            subtract(operand1,operand2);
+            calculatorAnswer = subtract(operand1,operand2);
             break;
         case "*":
-            multiply(operand1,operand2);
+            calculatorAnswer = multiply(operand1,operand2);
             break;
         case "/":
-            divide(operand1,operand2);
+            calculatorAnswer = divide(operand1,operand2);
             break;
     }
 };
@@ -36,17 +36,37 @@ const displayNumbers = (number) => {
     operations.textContent += number;
     
     operandOne = operations.textContent;
+
+    let operandsArray = [];
+    if(operatorChoice != undefined) {
+        operandsArray = operations.textContent.split(" ");
+    }
+
+    console.log(operandsArray);
+
+    operandTwo = operandsArray[2];
 };
 
 const displayOperator = (operator) => {
     const operations = document.querySelector(".operations");
-    operations.textContent += ` ${operator} `;
+    
+    if(operatorChoice === undefined) {
+        operations.textContent += ` ${operator} `;
+    
+        operatorChoice = operator;
+    }
+};
+
+const displayAnswer = (answer) => {
+    const operations = document.querySelector(".operations");
+    operations.textContent = answer;
 };
 
 
 let operandOne;
 let operandTwo;
 let operatorChoice;
+let calculatorAnswer;
 
 const zero = document.querySelector("#zero");
 const one = document.querySelector("#one");
@@ -63,6 +83,8 @@ const addOperator = document.querySelector("#add");
 const subtractOperator = document.querySelector("#subtract");
 const multiplyOperator = document.querySelector("#multiply");
 const divideOperator = document.querySelector("#divide");
+
+const evaluate = document.querySelector("#evaluate");
 
 zero.addEventListener("click", function (e) {
     displayNumbers(e.target.textContent);
@@ -95,6 +117,7 @@ nine.addEventListener("click", function (e) {
     displayNumbers(e.target.textContent)
 });
 
+
 addOperator.addEventListener("click", function (e) {
     displayOperator(e.target.textContent)
 });
@@ -106,4 +129,8 @@ multiplyOperator.addEventListener("click", function (e) {
 });
 divideOperator.addEventListener("click", function (e) {
     displayOperator(e.target.textContent)
+});
+
+evaluate.addEventListener("click", function() {
+    operate(operatorChoice, operandOne, operandTwo);
 });
