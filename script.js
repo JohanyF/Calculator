@@ -15,18 +15,19 @@ const divide = (operand1, operand2) => {
 };
 
 const operate = (operator, operand1, operand2) => {
+    
     switch(operator) {
         case "+":
-            calculatorAnswer = add(operand1, operand2);
+            calculatorAnswer = add(Number(operand1), Number(operand2));
             break;
         case "-":
-            calculatorAnswer = subtract(operand1,operand2);
+            calculatorAnswer = subtract(Number(operand1),Number(operand2));
             break;
-        case "*":
-            calculatorAnswer = multiply(operand1,operand2);
+        case "x":
+            calculatorAnswer = multiply(Number(operand1),Number(operand2));
             break;
-        case "/":
-            calculatorAnswer = divide(operand1,operand2);
+        case "÷":
+            calculatorAnswer = divide(Number(operand1),Number(operand2));
             break;
     }
 };
@@ -35,15 +36,12 @@ const displayNumbers = (number) => {
     const operations = document.querySelector(".operations");
     operations.textContent += number;
     
-    operandOne = operations.textContent;
-
     let operandsArray = [];
     if(operatorChoice != undefined) {
         operandsArray = operations.textContent.split(" ");
     }
 
-    console.log(operandsArray);
-
+    operandOne = operandsArray[0];
     operandTwo = operandsArray[2];
 };
 
@@ -133,4 +131,5 @@ divideOperator.addEventListener("click", function (e) {
 
 evaluate.addEventListener("click", function() {
     operate(operatorChoice, operandOne, operandTwo);
+    displayAnswer(calculatorAnswer);
 });
