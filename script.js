@@ -89,7 +89,13 @@ const deleteValue = () => {
     }
 };
 
-
+const clear = () => {
+    const expression = document.querySelector(".expression");
+    expression.textContent = "";
+    const operations = document.querySelector(".operations");
+    operations.textContent = "";
+    updateCalculatorVariables();
+};
 
 let operandOne;
 let operandTwo;
@@ -116,6 +122,7 @@ const divideOperator = document.querySelector("#divide");
 const evaluate = document.querySelector("#evaluate");
 
 const deleteBtn = document.querySelector("#delete");
+const clearBtn = document.querySelector("#clear");
 
 zero.addEventListener("click", function (e) {
     displayNumbers(e.target.textContent);
@@ -170,3 +177,4 @@ evaluate.addEventListener("click", function() {
 });
 
 deleteBtn.addEventListener("click", deleteValue);
+clearBtn.addEventListener("click", clear);
