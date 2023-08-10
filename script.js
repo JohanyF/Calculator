@@ -72,11 +72,30 @@ const updateCalculatorVariables = () => {
     calculatorAnswer = undefined;
 };
 
+const deleteValue = () => {
+    const operations = document.querySelector(".operations");
+
+    if(operations.textContent.endsWith(" ")) {
+        operations.textContent = operations.textContent.substring(0, operations.textContent.length-1);
+        operations.textContent = operations.textContent.substring(0, operations.textContent.length-1);
+        operations.textContent = operations.textContent.substring(0, operations.textContent.length-1);
+    } else {
+        operations.textContent = operations.textContent.substring(0, operations.textContent.length-1);
+    }
+
+
+    if(operatorChoice !== undefined) {
+        operatorChoice = undefined;
+    }
+};
+
+
 
 let operandOne;
 let operandTwo;
 let operatorChoice;
 let calculatorAnswer;
+
 
 const zero = document.querySelector("#zero");
 const one = document.querySelector("#one");
@@ -95,6 +114,8 @@ const multiplyOperator = document.querySelector("#multiply");
 const divideOperator = document.querySelector("#divide");
 
 const evaluate = document.querySelector("#evaluate");
+
+const deleteBtn = document.querySelector("#delete");
 
 zero.addEventListener("click", function (e) {
     displayNumbers(e.target.textContent);
@@ -147,3 +168,5 @@ evaluate.addEventListener("click", function() {
     displayExpression(operatorChoice, operandOne, operandTwo);
     updateCalculatorVariables();
 });
+
+deleteBtn.addEventListener("click", deleteValue);
