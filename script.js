@@ -33,22 +33,41 @@ const operate = (operator, operand1, operand2) => {
 };
 
 const displayNumbers = (number) => {
+    let operandsArray = [];
+
     const operations = document.querySelector(".operations");
+
     operations.textContent += number;
     
-    let operandsArray = [];
-    if(operatorChoice != undefined) {
-        operandsArray = operations.textContent.split(" ");
-    }
+    operandsArray = operations.textContent.split(" ");
 
     operandOne = operandsArray[0];
-    operandTwo = operandsArray[2];
+    if(operandsArray[2] !== undefined) {
+        operandTwo = operandsArray[2];
+    }
+
+    if(operandOne.includes(".") || operandTwo.includes(".")) {
+        decimalPoint.disabled = true;
+        if(operatorChoice !== "" && operandTwo !== "") {
+            decimalPoint.disabled = false;
+
+            if(operandTwo.includes(".")) {
+                decimalPoint.disabled = true;
+            }
+        }
+    }
+
+
+    console.log(operandsArray);
+
 };
 
 const displayOperator = (operator) => {
     const operations = document.querySelector(".operations");
+
     
-    if(operatorChoice === undefined) {
+    if(operatorChoice === "") {
+        //decimalPoint.disabled = false;
         operations.textContent += ` ${operator} `;
     
         operatorChoice = operator;
@@ -67,9 +86,9 @@ const displayExpression = (operator, operand1, operand2) => {
 
 const updateCalculatorVariables = () => {
     operandOne = calculatorAnswer;
-    operandTwo = undefined;
-    operatorChoice = undefined;
-    calculatorAnswer = undefined;
+    operandTwo = "";
+    operatorChoice = "";
+    calculatorAnswer = "";
 };
 
 const deleteValue = () => {
@@ -84,8 +103,8 @@ const deleteValue = () => {
     }
 
 
-    if(operatorChoice !== undefined) {
-        operatorChoice = undefined;
+    if(operatorChoice !== "") {
+        operatorChoice = "";
     }
 };
 
@@ -97,10 +116,12 @@ const clear = () => {
     updateCalculatorVariables();
 };
 
-let operandOne;
-let operandTwo;
-let operatorChoice;
-let calculatorAnswer;
+let operandOne = "";
+let operandTwo = "";
+let operatorChoice = "";
+let calculatorAnswer = "";
+
+let checkDecimal = false;
 
 
 const zero = document.querySelector("#zero");
@@ -123,6 +144,7 @@ const evaluate = document.querySelector("#evaluate");
 
 const deleteBtn = document.querySelector("#delete");
 const clearBtn = document.querySelector("#clear");
+const decimalPoint = document.querySelector("#decimal");
 
 zero.addEventListener("click", function (e) {
     displayNumbers(e.target.textContent);
@@ -151,8 +173,8 @@ seven.addEventListener("click", function (e) {
 eight.addEventListener("click", function (e) {
     displayNumbers(e.target.textContent)
 });
-nine.addEventListener("click", function (e) {
-    displayNumbers(e.target.textContent)
+nine.addEventListener("click", (event) => {
+    displayNumbers(event.target.textContent)
 });
 
 
@@ -178,3 +200,8 @@ evaluate.addEventListener("click", function() {
 
 deleteBtn.addEventListener("click", deleteValue);
 clearBtn.addEventListener("click", clear);
+
+decimalPoint.addEventListener("click", (event) => {
+    displayNumbers(event.target.textContent);
+    console.log(operandOne);
+});
