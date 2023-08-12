@@ -19,13 +19,14 @@ const operate = (operator, operand1, operand2) => {
             calculatorAnswer = divide(Number(operand1),Number(operand2));
             break;
         case "%":
-            calculatorAnswer = mod(Number(operand1),Number(operand2))
+            calculatorAnswer = mod(Number(operand1),Number(operand2));
+        case "":
+            break;
     }
 };
 
 const displayNumbers = (number) => {
     const operations = document.querySelector(".operations");
-    //operations.textContent += number;
     operations.textContent = number;
 
 };
@@ -38,7 +39,12 @@ const displayOperator = (operator) => {
 
 const displayAnswer = (answer) => {
     const operations = document.querySelector(".operations");
-    operations.textContent = answer;
+    if(operatorChoice === "" || operandOne === "" || operandTwo === "") {
+        operations.textContent = "";
+        updateCalculatorVariables();
+    } else {
+        operations.textContent = answer;
+    }
 };
 
 const displayExpression = (operator, operand1) => {
@@ -47,19 +53,29 @@ const displayExpression = (operator, operand1) => {
 
     const operations = document.querySelector(".operations");
     operations.textContent = "";
+
+    operators.forEach((op) => {
+        op.style.pointerEvents = "none";
+    });
 };
 
 const displayEntireExpression = (operator, operand1, operand2) => {
     const expression = document.querySelector(".expression");
+    if(operator === "" || operand1 === "" || operand2 === "") {
+        return;
+    }
     expression.textContent = `${operand1} ${operator} ${operand2} =`;
 };
 
 const updateCalculatorVariables = () => {
-    operandOne = calculatorAnswer;
+    operandOne = calculatorAnswer.toString();
     operandTwo = "";
     operatorChoice = "";
     calculatorAnswer = "";
     decimalPoint.style.pointerEvents = "visible";
+    operators.forEach((op) => {
+        op.style.pointerEvents = "visible";
+    });
 };
 
 const deleteValue = () => {
@@ -123,6 +139,16 @@ const addDecimalPoint = (decimal) => {
 
 };
 
+const updateOperand = (number, operand) => {
+    if(operand.length === 1 && operand === "0") {
+        operand = number;
+    } else {
+        operand += number;
+    }
+
+    return operand;
+}
+
 let operandOne = "";
 let operandTwo = "";
 let operatorChoice = "";
@@ -134,10 +160,12 @@ const numbers = document.querySelectorAll(".number.btn");
 numbers.forEach((number) => {
     number.addEventListener("click", (event) => {
         if(operatorChoice === "") {
-            operandOne += event.target.textContent;
+            //zeroCheck(event.target.textContent);
+            //operandOne += event.target.textContent;
+            operandOne = updateOperand(event.target.textContent, operandOne);
             displayNumbers(operandOne);
         } else {
-            operandTwo += event.target.textContent;
+            operandTwo = updateOperand(event.target.textContent, operandTwo);
             displayExpression(operatorChoice, operandOne);
             displayNumbers(operandTwo);
         }
@@ -148,12 +176,17 @@ const operators = document.querySelectorAll(".operator.btn");
 
 operators.forEach((operator) => {
     operator.addEventListener("click", (event) => {
+        if(operandOne === "") {
+            return;
+        }
+
         if(operatorChoice === "") {
             operatorChoice = event.target.textContent;
             displayOperator(operatorChoice);
-            //displayExpression(operatorChoice, operandOne);
-            
-
+        } else if(operatorChoice !== "") {
+            deleteValue();
+            operatorChoice = event.target.textContent;
+            displayOperator(operatorChoice);
         }
     });
 });
