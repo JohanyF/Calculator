@@ -14,6 +14,9 @@ const divide = (operand1, operand2) => {
     return operand1 / operand2;
 };
 
+const mod = (operand1, operand2) => operand1 % operand2;
+    
+
 const operate = (operator, operand1, operand2) => {
 
     switch(operator) {
@@ -29,6 +32,8 @@ const operate = (operator, operand1, operand2) => {
         case "÷":
             calculatorAnswer = divide(Number(operand1),Number(operand2));
             break;
+        case "%":
+            calculatorAnswer = mod(Number(operand1),Number(operand2))
     }
 };
 
