@@ -99,7 +99,13 @@ const clear = () => {
 };
 
 const changeSign = () => {
-    
+    if(operatorChoice === "") {
+        operandOne *= -1;
+        displayNumbers(operandOne);
+    } else if(operatorChoice !== "") {
+        operandTwo *= -1;
+        displayAnswer(operandTwo)
+    };
 };
 
 const addDecimalPoint = (decimal) => {
