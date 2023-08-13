@@ -7,19 +7,19 @@ const mod = (operand1, operand2) => operand1 % operand2;
 const operate = (operator, operand1, operand2) => {
     switch(operator) {
         case "+":
-            calculatorAnswer = add(Number(operand1), Number(operand2));
+            calculatorAnswer = Math.round(add(Number(operand1),Number(operand2)) * 1000) / 1000;
             break;
         case "-":
-            calculatorAnswer = subtract(Number(operand1),Number(operand2));
+            calculatorAnswer = Math.round(subtract(Number(operand1),Number(operand2)) * 1000) / 1000;
             break;
         case "x":
-            calculatorAnswer = multiply(Number(operand1),Number(operand2));
+            calculatorAnswer = Math.round(multiply(Number(operand1),Number(operand2)) * 1000) / 1000;
             break;
         case "÷":
-            calculatorAnswer = divide(Number(operand1),Number(operand2));
+            calculatorAnswer = Math.round(divide(Number(operand1),Number(operand2)) * 1000) / 1000;
             break;
         case "%":
-            calculatorAnswer = mod(Number(operand1),Number(operand2));
+            calculatorAnswer = Math.round(mod(Number(operand1),Number(operand2)) * 1000) / 1000;
         case "":
             break;
     }
@@ -43,7 +43,7 @@ const displayAnswer = (answer) => {
         operations.textContent = "";
         updateCalculatorVariables();
     } else {
-        operations.textContent = answer;
+        operations.textContent = Math.round(answer * 1000) / 1000;
     }
 };
 
@@ -91,7 +91,6 @@ const deleteValue = () => {
         if(operatorChoice === "") {
             operandOne = operations.textContent;
         } else if (operatorChoice !== "") {
-            //operations.textContent = operations.textContent.substring(0, operations.textContent.length-1);
             operandTwo = operations.textContent;
         }
     }
@@ -116,7 +115,6 @@ const changeSign = () => {
         displayNumbers(operandOne);
     } else if(operatorChoice !== "") {
         operandTwo *= -1;
-        console.log(`operand2: ${operandTwo}`);
         displayAnswer(operandTwo);
     }
 };
@@ -166,12 +164,10 @@ const numbers = document.querySelectorAll(".number.btn");
 numbers.forEach((number) => {
     number.addEventListener("click", (event) => {
         if(operatorChoice === "") {
-            //zeroCheck(event.target.textContent);
-            //operandOne += event.target.textContent;
             operandOne = updateOperand(event.target.textContent, operandOne);
             displayNumbers(operandOne);
         } else {
-            operandTwo = updateOperand(event.target.textContent, operandTwo);
+            operandTwo = Math.round(updateOperand(event.target.textContent, operandTwo) * 1000) / 1000;
             displayExpression(operatorChoice, operandOne);
             displayNumbers(operandTwo);
         }
@@ -201,15 +197,12 @@ document.addEventListener("keydown", (event) => {
         if(operatorChoice === "") {
             if(event.key === "*") {
                 operatorChoice = "x";
-                console.log(operatorChoice);
                 displayOperator(operatorChoice);    
             } else if (event.key === "/") {
                 operatorChoice = "÷";
-                console.log(operatorChoice);
                 displayOperator(operatorChoice);    
             } else {
                 operatorChoice = event.key;
-                console.log(operatorChoice);
                 displayOperator(operatorChoice);
             }
         } else if(operatorChoice !== "") {
