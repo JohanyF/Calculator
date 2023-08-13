@@ -106,13 +106,19 @@ const clear = () => {
 };
 
 const changeSign = () => {
+    
+    if(operandOne === "") {
+        return;
+    }
+    
     if(operatorChoice === "") {
         operandOne *= -1;
         displayNumbers(operandOne);
     } else if(operatorChoice !== "") {
         operandTwo *= -1;
-        displayAnswer(operandTwo)
-    };
+        console.log(`operand2: ${operandTwo}`);
+        displayAnswer(operandTwo);
+    }
 };
 
 const addDecimalPoint = (decimal) => {
@@ -170,6 +176,74 @@ numbers.forEach((number) => {
             displayNumbers(operandTwo);
         }
     });
+});
+
+document.addEventListener("keydown", (event) => {
+    if(event.key >= "0" && event.key <= "9") {
+        if(operatorChoice === "") {
+            operandOne = updateOperand(event.key, operandOne);
+            displayNumbers(operandOne);
+        } else {
+            operandTwo = updateOperand(event.key, operandTwo);
+            displayExpression(operatorChoice, operandOne);
+            displayNumbers(operandTwo);
+        }
+    }
+    if(["+", "-", "*", "/", "%"].includes(event.key)) {
+        if(operandOne === "") {
+            return;
+        }
+
+        if(operandTwo !== "") {
+            return;
+        }
+
+        if(operatorChoice === "") {
+            if(event.key === "*") {
+                operatorChoice = "x";
+                console.log(operatorChoice);
+                displayOperator(operatorChoice);    
+            } else if (event.key === "/") {
+                operatorChoice = "÷";
+                console.log(operatorChoice);
+                displayOperator(operatorChoice);    
+            } else {
+                operatorChoice = event.key;
+                console.log(operatorChoice);
+                displayOperator(operatorChoice);
+            }
+        } else if(operatorChoice !== "") {
+            if(event.key === "*") {
+                deleteValue();
+                operatorChoice = "x";
+                displayOperator(operatorChoice);    
+            } else if (event.key === "/") {
+                deleteValue();
+                operatorChoice = "÷";
+                displayOperator(operatorChoice);
+            } else {
+                deleteValue();
+                operatorChoice = event.key;
+                displayOperator(operatorChoice);
+            }
+        }
+    }
+
+    if(["=", "Enter"].includes(event.key)) {
+        operate(operatorChoice, operandOne, operandTwo);
+        displayAnswer(calculatorAnswer);
+        displayEntireExpression(operatorChoice, operandOne, operandTwo);
+        updateCalculatorVariables();
+    }
+
+    if(event.key === ".") {
+        addDecimalPoint(event.key);
+    }
+
+    if(event.key === "Backspace") {
+        deleteValue();
+    }
+    
 });
 
 const operators = document.querySelectorAll(".operator.btn"); 
