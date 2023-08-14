@@ -14,13 +14,14 @@
 }
 
 .calculator {
-    height: 600px;
+    min-height: 600px;
     width: 400px;
     padding: 16px;
     display: flex;
     flex-direction: column;
     gap: 16px;
     background-color: #00008bfc;
+    overflow-wrap: break-word;
 }
 
 .display {
@@ -34,13 +35,13 @@
 }
 
 .expression {
-    height: 30%;
+    min-height: 24.8375px;
     text-align: right;
     font-size: 20px;
 }
 
 .operations {
-    height: 70%;
+    min-height: 56px;
     font-size: 48px;
     text-align: right;
 }
