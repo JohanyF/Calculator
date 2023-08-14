@@ -11,6 +11,8 @@
     justify-content: center;
     align-items: center;
     height: 100vh;
+
+    background-color: rgba(226, 212, 212, 0.545);
 }
 
 .calculator {
@@ -23,6 +25,8 @@
     background-color: #00008bfc;
     overflow-wrap: break-word;
     border-radius: 10px;
+
+    box-shadow: 10px 10px 10px black;
 }
 
 .display {
@@ -34,6 +38,8 @@
     padding: 10px;
     border-top-color: white;
     border-left-color: white;
+
+    box-shadow: 5px 5px 1px black;
 }
 
 .expression {
@@ -67,6 +73,8 @@
     background-color: rgb(218, 210, 210);
     color: #0404d2;
     border-color: white;
+
+    box-shadow: 5px 5px 1px black;
 }
 
 .btn:hover {
