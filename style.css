@@ -22,6 +22,7 @@
     gap: 16px;
     background-color: #00008bfc;
     overflow-wrap: break-word;
+    border-radius: 10px;
 }
 
 .display {
@@ -30,7 +31,6 @@
     border: 2px solid #4f4e4e;
     background-color: #b7b3b3;
     border-radius: 10px;
-
     padding: 10px;
 }
 
